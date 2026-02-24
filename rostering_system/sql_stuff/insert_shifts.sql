@@ -197,3 +197,5 @@ insert into assignment (
     ) < 10;
 
 --  commit; 
+
+select * from staff;
