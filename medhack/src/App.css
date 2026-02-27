@@ -40,3 +40,39 @@
 .read-the-docs {
   color: #888;
 }
+
+.react-calendar {
+  width: 100%;
+  max-width: 400px;
+  background: #1e1e1e;
+  color: #f3f4f6;
+  border-radius: 12px;
+  border: 1px solid #333;
+  padding: 1rem;
+}
+
+.react-calendar__tile {
+  border-radius: 8px;
+}
+
+.react-calendar__tile:hover {
+  background: #2a2a2a;
+}
+
+.react-calendar__tile--now {
+  background: #374151;
+}
+
+.react-calendar__tile--active {
+  background: #3b82f6;
+  color: white;
+}
+
+.react-calendar__navigation button {
+  color: #f3f4f6;
+  background: transparent;
+}
+
+.react-calendar__navigation button:hover {
+  background: #2a2a2a;
+}
