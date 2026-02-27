@@ -22,7 +22,8 @@
     
     wellness_score:
         this should be updated each week for each staff member based on current week events and previous scores
-        - fatigure_score
+        - fatigue_score
         - stress_score
         - burnout_risk
+
     
