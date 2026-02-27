@@ -6,7 +6,7 @@ const CalendarPage: React.FC = () => {
   const [date, setDate] = useState<Date>(new Date());
 
   return (
-    <div className="calendar-card">
+    <div className="calendar-card1">
       <div className="calendar-container">
         <h2 style={{ marginBottom: "20px" }}>Calendar</h2>
       <Calendar

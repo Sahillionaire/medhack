@@ -3,13 +3,14 @@
 // import viteLogo from '/vite.svg'
 import Navbar from "./components/Navbar";
 import CalendarPage from "./pages/CalendarPage";
+import WeekView from "./pages/WeekView";
 
 function App() {
   return (
     <div className="app-container">
       <Navbar />
       <main className="main-content">
-        <CalendarPage />
+        <WeekView />
       </main>
     </div>
   );
