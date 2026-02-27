@@ -1,2 +1,3 @@
 small_tracts/*.csv
 *.bkp
+.env
