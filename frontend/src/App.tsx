@@ -2,7 +2,7 @@
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
 import Navbar from "./components/Navbar";
-import CalendarPage from "./pages/CalendarPage";
+// import CalendarPage from "./pages/CalendarPage";
 import WeekView from "./pages/WeekView";
 
 function App() {
