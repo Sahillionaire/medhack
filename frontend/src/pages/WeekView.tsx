@@ -19,21 +19,24 @@ export default function WeekView() {
   const [shifts, setShifts] = useState<Shift[]>([]);
   
   useEffect(() => {
-    api.get("/shifts")
-      .then(res => setShifts(res.data))
-      .catch(err => console.error(err));
-  }, []);
+  api.get("/shifts")
+    .then(res => {
+      console.log("SHIFTS FROM API:", res.data);
+      setShifts(res.data);
+    })
+    .catch(err => console.error("API ERROR:", err));
+}, []);
 
   // Transform shifts into react-big-calendar events
   const events = shifts.map(shift => ({
     id: shift.shift_id,
     title: `${shift.shift_type} - Dept ${shift.department_id}`,
-    start: new Date(shift.shift_start),
-    end: new Date(shift.shift_end),
+    start: moment(shift.shift_start).toDate(),
+    end: moment(shift.shift_end).toDate(),
     allDay: false,
     resource: shift
   }));
-
+  
   return (
     <div className="page-background">
         <div className="calendar-card">
