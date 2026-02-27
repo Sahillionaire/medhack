@@ -1,34 +1,58 @@
-import { Calendar, momentLocalizer } from "react-big-calendar";
+import { Calendar, momentLocalizer, Views } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
+import { useState, useEffect } from "react";
+import api from "../services/api";
 
 const localizer = momentLocalizer(moment);
 
-const events = [
-  {
-    title: "Meeting",
-    start: new Date(2026, 1, 27, 10, 0),
-    end: new Date(2026, 1, 27, 11, 0),
-  },
-  {
-    title: "Workout",
-    start: new Date(2026, 1, 27, 15, 0),
-    end: new Date(2026, 1, 27, 16, 0),
-  },
-];
+type Shift = {
+  shift_id: number;
+  department_id: number;
+  shift_start: string;
+  shift_end: string;
+  shift_type: string; // DAY or NIGHT
+};
 
 export default function WeekView() {
+  const [date, setDate] = useState(new Date());
+  const [shifts, setShifts] = useState<Shift[]>([]);
+  
+  useEffect(() => {
+    api.get("/shifts")
+      .then(res => setShifts(res.data))
+      .catch(err => console.error(err));
+  }, []);
+
+  // Transform shifts into react-big-calendar events
+  const events = shifts.map(shift => ({
+    id: shift.shift_id,
+    title: `${shift.shift_type} - Dept ${shift.department_id}`,
+    start: new Date(shift.shift_start),
+    end: new Date(shift.shift_end),
+    allDay: false,
+    resource: shift
+  }));
+
   return (
     <div className="page-background">
         <div className="calendar-card">
             <Calendar
-        localizer={localizer}
-        events={events}
-        defaultView="week"
-        views={["week"]}
-        step={30}
-        timeslots={2}
-      />
+            localizer={localizer}
+            events={events}
+            defaultView={Views.WEEK}
+            views={{ week : true }}
+            date={date}
+            onNavigate={setDate}
+            step={30}
+            timeslots={2}
+            style={{ height: "100%", color: "black" }}
+            eventPropGetter={(event) => {
+            // Color by shift type
+            const backgroundColor = event.resource.shift_type === "DAY" ? "#3b82f6" : "#f97316";
+            return { style: { backgroundColor, color: "black", borderRadius: "6px", padding: "2px" } };
+          }}
+            />
         </div>
     </div>
   );

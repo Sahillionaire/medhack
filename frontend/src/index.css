@@ -183,3 +183,9 @@ html, body, #root {
   flex: 1;          /* ensure all day columns share equal space */
   min-width: 180px; /* adjust width as needed */
 }
+
+/* Make sure nothing blocks clicks */
+.calendar-card,
+.calendar-card .rbc-calendar {
+  pointer-events: auto;
+}
