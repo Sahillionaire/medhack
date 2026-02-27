@@ -1,0 +1,29 @@
+*FEATURES RELEVANT TO SHIFT SCHEDULING*
+
+    staff
+        - hire_date : later hire -> less exp -> more stressed
+        - status: Available or Not available -> directly affects if theyre allowed to have shifts
+        - primary_department: Give preference to shifts here
+    
+    department:
+        - department_name: ED > ICU > General
+    
+    incident_exposure:
+        - severity_level: HIGH > MEDIUM > LOW
+        - emotional_weight_score: from 0-10, higher score -> more stress -> give less shifts
+        - recorded_at: recent incidents are weighted more towards shift preference
+
+    workload_record:
+        - week_start_date: recent records have higher weights towards shift preference
+        - total_hours: more weekly hours -> more stress -> give less shifts
+        - night_shifts: higher num of night shifts -> more stress -> give less night shifts in future
+        - consecutive_days: higher num -> more stress -> give more breaks
+        - overtime_hours: higher num -> more stress -> give less shifts
+    
+    wellness_score:
+        this should be updated each week for each staff member based on current week events and previous scores
+        - fatigue_score
+        - stress_score
+        - burnout_risk
+
+    

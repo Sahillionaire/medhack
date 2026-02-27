@@ -1,20 +1,19 @@
 // import { useState } from 'react'
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
-import './App.css'
 import Navbar from "./components/Navbar";
 import CalendarPage from "./pages/CalendarPage";
+import WeekView from "./pages/WeekView";
 
 function App() {
-  //const [count, setCount] = useState(0)
-
   return (
-    <div>
+    <div className="app-container">
       <Navbar />
-      <h2>Welcome to the app!</h2>
-      <CalendarPage />;
+      <main className="main-content">
+        <WeekView />
+      </main>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
