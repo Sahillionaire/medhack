@@ -14,6 +14,7 @@ from dataclasses import dataclass
 from datetime import datetime, timedelta
 from typing import List, Optional, Dict
 import math
+import json
 
 
 @dataclass
@@ -477,3 +478,61 @@ if __name__ == "__main__":
     
     for i, rec in enumerate(recommendations, 1):
         print(f"\n{i}. {recommender.explain_recommendation(rec)}")
+
+
+
+
+
+def allocate_shifts(
+    self,
+    staff_list: List[StaffProfile],
+    shifts: List[Shift],
+    department_name: str = None
+):
+    roster = []
+    assigned_staff_ids = set()
+
+    for shift in shifts:
+        # Filter staff not already assigned
+        available_staff = [
+            s for s in staff_list
+            if s.staff_id not in assigned_staff_ids
+        ]
+
+        # Rank staff for this shift
+        recommendations = self.recommend_top_staff(
+            available_staff,
+            shift,
+            department_name,
+            top_n=len(available_staff)
+        )
+
+        # Determine how many staff needed
+        required = getattr(shift, "required_staff_count", 1)
+
+        selected = []
+        for rec in recommendations:
+            if len(selected) >= required:
+                break
+
+            selected.append(rec)
+            assigned_staff_ids.add(rec.staff_id)
+
+        # Store result
+        roster.append({
+            "shift_id": shift.shift_id,
+            "department_id": shift.department_id,
+            "shift_type": shift.shift_type,
+            "shift_start": shift.shift_start.isoformat(),
+            "shift_end": shift.shift_end.isoformat(),
+            "assigned_staff": [
+                {
+                    "staff_id": r.staff_id,
+                    "name": r.staff_name,
+                    "score": r.suitability_score
+                }
+                for r in selected
+            ]
+        })
+
+    return roster
